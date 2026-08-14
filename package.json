@@ -1,0 +1,40 @@
+{
+  "name": "hotpool-tracker",
+  "private": false,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "热点追踪池 — 现象级热点档案系统，抓取四大平台热榜，AI 生成创作方向",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:dev": "vite build --mode development",
+    "preview": "vite preview",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.4",
+    "@tanstack/react-query": "^5.90.5",
+    "lucide-react": "^0.553.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.9.6",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.4.0",
+    "class-variance-authority": "^0.7.0",
+    "sonner": "^1.5.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.27",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^5.1.0",
+    "autoprefixer": "^10.4.22",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.4",
+    "typescript": "~5.9.3",
+    "vite": "5.4.11"
+  }
+}
