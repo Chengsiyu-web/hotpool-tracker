@@ -9,7 +9,9 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "setup-db": "echo 'Please run scripts/setup-db.sql in Supabase SQL Editor'",
+    "seed-vocab": "echo 'Please run scripts/seed-vocab.sql in Supabase SQL Editor'"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.4",
