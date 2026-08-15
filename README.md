@@ -236,12 +236,6 @@ hotpool-tracker/
 | AI Agent API | 热榜扫描 + 创作方向生成 | ✅ 必需 |
 | hotflashnews.com | 热榜数据抓取源（prompt 中引用） | ⚠️ 可替换 |
 
-## 原始项目信息
-
-本项目脱胎于美团内部 NoCode 平台项目（内容创意生产平台），已移除所有 NoCode 专属依赖并抽象为可独立部署的开源版本。
-
-原始项目使用的内部组件库（@roo/roo、NoCode 插件等）已完全移除，UI 改用 Tailwind CSS + Lucide React 图标重写。
-
 ## License
 
 MIT
