@@ -33,14 +33,38 @@
 
 ## 🚀 快速开始
 
-### 前置要求
+### 在线 Demo
+
+无需任何配置，直接访问演示站点体验完整功能：
+
+**[🔥 点击体验 Demo →](你的demo地址)** （演示版使用模拟数据）
+
+> 💡 提示：此处应替换为你的 Vercel/Netlify 部署地址。部署方法见下方「部署前端」章节。
+
+### 本地快速体验（无需后端）
+
+想本地运行一个无需任何后端配置的演示版本：
+
+```bash
+git clone https://github.com/Chengsiyu-web/hotpool-tracker.git
+cd hotpool-tracker
+npm install
+echo "VITE_DEMO_MODE=true" > .env
+npm run dev
+```
+
+打开 http://localhost:8080 即可看到带 mock 数据的完整界面。
+
+### 完整部署（接入真实后端）
+
+#### 前置要求
 
 - Node.js >= 18.0
 - npm >= 9.0（或 pnpm / yarn）
 - 一个 [Supabase](https://supabase.com) 账号（免费计划即可）
 - 一个 AI 服务 API Key（OpenAI / DeepSeek / 通义千问 等 OpenAI 兼容服务）
 
-### 1. 克隆并安装依赖
+#### 1. 克隆并安装依赖
 
 ```bash
 git clone https://github.com/Chengsiyu-web/hotpool-tracker.git

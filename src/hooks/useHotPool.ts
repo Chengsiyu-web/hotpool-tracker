@@ -1,5 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { fetchHotPool } from '@/lib/hotpool';
+import { mockPoolItems } from '@/lib/mock-data';
+
+// 演示模式：无需后端即可体验完整 UI
+const DEMO_MODE = import.meta.env.VITE_DEMO_MODE === 'true';
 
 export interface HotPoolItem {
   id: number;
@@ -29,6 +33,14 @@ export function useHotPool(): HotPoolData {
   const loadPool = useCallback(async () => {
     setIsLoading(true);
     try {
+      // 演示模式：使用 mock 数据
+      if (DEMO_MODE) {
+        const items = mockPoolItems as HotPoolItem[];
+        setActivePool(items.filter((i) => i.status === 'active'));
+        setCoolingPool(items.filter((i) => i.status === 'cooling'));
+        return;
+      }
+
       const items = (await fetchHotPool()) as HotPoolItem[];
       setActivePool(items.filter((i) => i.status === 'active'));
       setCoolingPool(items.filter((i) => i.status === 'cooling'));

@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "setup-db": "echo 'Please run scripts/setup-db.sql in Supabase SQL Editor'",
-    "seed-vocab": "echo 'Please run scripts/seed-vocab.sql in Supabase SQL Editor'"
+    "seed-vocab": "echo 'Please run scripts/seed-vocab.sql in Supabase SQL Editor'",
+    "demo": "cp .env.example .env.demo && echo 'VITE_DEMO_MODE=true' >> .env.demo && vite --mode demo"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.4",

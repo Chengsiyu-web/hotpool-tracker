@@ -7,6 +7,10 @@ import { processScanResults } from "@/lib/hotpool";
 import { useHotPool } from "@/hooks/useHotPool";
 import HotPoolBar from "@/components/HotPoolBar";
 import { normalizeTitle } from "@/lib/hotpool";
+import { mockScanResults, mockVocab, mockPoolItems } from "../lib/mock-data";
+
+// 演示模式：无需后端即可体验完整 UI
+const DEMO_MODE = import.meta.env.VITE_DEMO_MODE === "true";
 
 // 方向颜色映射
 const DIRECTION_COLORS: Record<string, string> = {
@@ -116,6 +120,27 @@ export default function HotspotScanPage({ onNext }: HotspotScanPageProps) {
     setLoading(true);
     setError("");
     setProgressNote("正在准备知识库词表…");
+
+    // ── 演示模式：直接返回 mock 数据 ──
+    if (DEMO_MODE) {
+      setProgressNote("演示模式：正在加载模拟数据…");
+      await new Promise((r) => setTimeout(r, 800));
+      const vocab = mockVocab;
+      const hotspots = mockScanResults;
+
+      const validation = validateScanResult({ hotspots });
+      if (validation.validHotspots.length > 0) {
+        const audit = auditHotspotsVocab(validation.validHotspots, vocab);
+        setVocabAudit(audit);
+      }
+
+      setSnapshot({ id: 1, scan_date: todayLocal(), hotspots: validation.validHotspots, source: "demo" });
+      setProgressNote("");
+      setLoading(false);
+      return;
+    }
+
+    // ── 正常模式：调用真实后端 ──
     const startedAt = Date.now();
     try {
       const vocab = await fetchToneArcVocab(true);
@@ -130,7 +155,6 @@ export default function HotspotScanPage({ onNext }: HotspotScanPageProps) {
       const directionsPerHotspot = Number(import.meta.env.VITE_DIRECTIONS_PER_HOTSPOT) || 4;
       const { hotspots: scannedHotspots, response } = await aiService.scanHotspots(vocab, { topN, directionsPerHotspot });
 
-      // 写入 hotspot_results 表
       const { supabase } = await import("@/integrations/supabase/client");
       const { error: insertError } = await supabase.from("hotspot_results").insert({
         source: source === "manual" ? "manual" : "cron",
@@ -179,6 +203,18 @@ export default function HotspotScanPage({ onNext }: HotspotScanPageProps) {
   // 首屏：只读取历史数据，不自动触发扫描
   useEffect(() => {
     (async () => {
+      // 演示模式：直接展示 mock 数据
+      if (DEMO_MODE) {
+        setSnapshot({
+          id: 0,
+          scan_date: todayLocal(),
+          hotspots: mockScanResults,
+          source: "demo",
+        });
+        setBootLoading(false);
+        return;
+      }
+
       try {
         const today = await fetchTodayCronResult();
         if (today) {
@@ -269,6 +305,22 @@ export default function HotspotScanPage({ onNext }: HotspotScanPageProps) {
 
   return (
     <div className="min-h-full bg-[#f6f4f0]">
+      {/* 演示模式提示条 */}
+      {DEMO_MODE && (
+        <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 text-center">
+          <span className="text-sm text-amber-700">
+            🎮 演示模式 — 数据为模拟数据，无需配置后端。
+            <a
+              href="https://github.com/Chengsiyu-web/hotpool-tracker#%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 underline hover:text-amber-900"
+            >
+              部署真实版本 →
+            </a>
+          </span>
+        </div>
+      )}
       <HotPoolBar activePool={activePool} coolingPool={coolingPool} isLoading={poolLoading} refreshPool={refreshPool} />
       <div className="max-w-5xl mx-auto px-6 py-8">
         {/* 标题区域 */}

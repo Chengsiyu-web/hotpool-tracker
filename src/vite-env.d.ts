@@ -12,6 +12,7 @@ interface ImportMetaEnv {
   readonly VITE_OPENAI_BASE_URL: string;
   readonly VITE_OPENAI_API_KEY: string;
   readonly VITE_OPENAI_MODEL: string;
+  readonly VITE_DEMO_MODE: string;
   readonly VITE_SCAN_TOP_N: string;
   readonly VITE_DIRECTIONS_PER_HOTSPOT: string;
 }
