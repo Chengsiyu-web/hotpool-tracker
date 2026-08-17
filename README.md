@@ -139,11 +139,10 @@ npm run dev
 
 ### AI 服务配置
 
-项目支持三种 AI 后端，通过 `VITE_AI_PROVIDER` 切换：
+项目支持 AI 后端，通过 `VITE_AI_PROVIDER` 切换：
 
 | Provider | 说明 | 适用场景 |
 |---|---|---|
-| `catx` | 美团内部 CatX Agent | 美团内网用户（原始版本） |
 | `openai` | OpenAI 兼容 API | 使用 GPT-4o / DeepSeek / 通义千问等 |
 | `custom` | 自定义适配器 | 接入任意 AI 服务 |
 
